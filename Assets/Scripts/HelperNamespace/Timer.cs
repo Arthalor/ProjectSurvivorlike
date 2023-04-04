@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace Helper
 {
-    [Serializable]
     public class Timer
     {
-        [SerializeField] private float maxTime;
+        private float maxTime;
 
         private float timer = 0;
 

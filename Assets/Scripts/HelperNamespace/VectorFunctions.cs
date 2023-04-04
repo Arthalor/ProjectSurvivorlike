@@ -20,5 +20,20 @@ namespace Helper
         {
             return SqrDistance(a, b) < Mathf.Pow(compareDistance, 2);
         }
+
+        public static Vector2 VectorFromAtoB(Vector2 a, Vector2 b) 
+        {
+            return b - a;
+        }
+
+        public static Vector2 DirectionAtoB(Vector2 a, Vector2 b) 
+        {
+            return (b - a).normalized;
+        }
+
+        public static Vector2 Vector2NoZ(Vector3 input) 
+        {
+            return new Vector2(input.x, input.y);
+        }
     }
 }

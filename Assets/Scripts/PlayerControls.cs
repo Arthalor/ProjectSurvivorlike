@@ -9,18 +9,30 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private int health = default;
     [SerializeField] private float movementSpeed = default;
     [SerializeField] private float gunDistance = default;
-    [SerializeField] private Timer attackTimer = default;
+    [SerializeField] private float attackDelay = default;
+    private Timer attackTimer;
 
     [SerializeField] private GameObject bulletPrefab = default;
     [SerializeField] private Transform gunBarrel = default;
 
+    private Rigidbody2D rb = default;
     private PlayerInput input = default;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        attackTimer = new Timer(attackDelay);
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = movementSpeed * new Vector3(input.movement.x, input.movement.y, 0).normalized;
+    }
 
     void Update()
     {
         input = inputHandler.Input();
 
-        transform.position += movementSpeed * Time.deltaTime * new Vector3(input.movement.x, input.movement.y, 0).normalized;
         GunBehaviour();
 
         attackTimer.TickTimer(Time.deltaTime);
@@ -46,7 +58,21 @@ public class PlayerControls : MonoBehaviour
 
     public void TakeDamage(int amount) 
     {
+        OnHitKnockback();
         health -= amount;
         if (health <= 0) GameManager.Instance.GameOver();
+    }
+
+    private void OnHitKnockback() 
+    {
+        Collider2D[] collidersInRange = Physics2D.OverlapCircleAll(transform.position, 3f);
+
+        foreach (Collider2D collider in collidersInRange)
+        {
+            if (collider.TryGetComponent(out BasicEnemyBehaviour enemy))
+            {
+                enemy.Knockback();
+            }
+        }
     }
 }
