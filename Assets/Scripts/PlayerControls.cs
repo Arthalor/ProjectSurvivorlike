@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler = default;
+    [SerializeField] private int health = default;
     [SerializeField] private float movementSpeed = default;
     [SerializeField] private float gunDistance = default;
     [SerializeField] private Timer attackTimer = default;
@@ -41,5 +42,11 @@ public class PlayerControls : MonoBehaviour
         gunBarrel.position = transform.position + gunDirection.normalized * gunDistance;
         float angle = (Mathf.Rad2Deg * Mathf.Atan2(gunDirection.y, gunDirection.x));
         gunBarrel.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
+    public void TakeDamage(int amount) 
+    {
+        health -= amount;
+        if (health <= 0) GameManager.Instance.GameOver();
     }
 }

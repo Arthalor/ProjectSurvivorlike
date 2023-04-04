@@ -34,4 +34,12 @@ public class BasicEnemyBehaviour : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.TryGetComponent(out PlayerControls player))
+        {
+            player.TakeDamage(1);
+        }
+    }
 }
