@@ -30,14 +30,14 @@ public class BasicEnemyBehaviour : MonoBehaviour
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref currentVelocity, 0.5f);
     }
 
-    protected Vector2 PlayerDirection()
+    public Vector2 PlayerDirection()
     {
         return DirectionAtoB(transform.position, player.position);
     }
 
-    protected void Knockback(Vector2 direction)
+    public void Knockback(Vector2 direction, float bounceFactor)
     {
-        rb.AddForce(direction * bounceForce,ForceMode2D.Impulse);
+        rb.AddForce(direction * bounceFactor,ForceMode2D.Impulse);
     }
 
     public void TakeDamage(float damage) 
@@ -51,17 +51,12 @@ public class BasicEnemyBehaviour : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Knockback() 
-    {      
-        Knockback(PlayerDirection() * -10);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Knockback(DirectionAtoB(collision.transform.position, transform.position));
         if (collision.collider.TryGetComponent(out PlayerControls player))
         {
             player.TakeDamage(1);
         }
+        else Knockback(DirectionAtoB(collision.transform.position, transform.position), bounceForce);
     }
 }

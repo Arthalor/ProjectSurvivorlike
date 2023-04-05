@@ -9,8 +9,9 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private int health = default;
     [SerializeField] private float movementSpeed = default;
     [SerializeField] private float gunDistance = default;
-    [SerializeField] private float attackDelay = default;
-    private Timer attackTimer;
+    [SerializeField] private float invulnerabilityKnockback = default;
+    [SerializeField] private Cooldown hitInvulnerabilty = default;
+    [SerializeField] private Timer attackTimer = default;
 
     [SerializeField] private GameObject bulletPrefab = default;
     [SerializeField] private Transform gunBarrel = default;
@@ -21,7 +22,6 @@ public class PlayerControls : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        attackTimer = new Timer(attackDelay);
     }
 
     private void FixedUpdate()
@@ -36,6 +36,7 @@ public class PlayerControls : MonoBehaviour
         GunBehaviour();
 
         attackTimer.TickTimer(Time.deltaTime);
+        hitInvulnerabilty.TickClock(Time.deltaTime);
         if (input.shooting && attackTimer.TimerFinished()) 
         {
             Shoot();
@@ -58,6 +59,7 @@ public class PlayerControls : MonoBehaviour
 
     public void TakeDamage(int amount) 
     {
+        if (!hitInvulnerabilty.StartCooldown()) return;
         OnHitKnockback();
         health -= amount;
         if (health <= 0) GameManager.Instance.GameOver();
@@ -71,7 +73,7 @@ public class PlayerControls : MonoBehaviour
         {
             if (collider.TryGetComponent(out BasicEnemyBehaviour enemy))
             {
-                enemy.Knockback();
+                enemy.Knockback(enemy.PlayerDirection(), -1f * invulnerabilityKnockback);
             }
         }
     }

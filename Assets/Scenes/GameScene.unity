@@ -237,7 +237,11 @@ MonoBehaviour:
   health: 3
   movementSpeed: 4
   gunDistance: 0.5
-  attackDelay: 0.5
+  invulnerabilityKnockback: 5
+  hitInvulnerabilty:
+    cooldownTime: 0.5
+  attackTimer:
+    maxTime: 0.5
   bulletPrefab: {fileID: 6541360136733734458, guid: 21346b828ad12af40890ba7a0095c0b1, type: 3}
   gunBarrel: {fileID: 501880356}
 --- !u!58 &38555064
@@ -766,7 +770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817821677445322384, guid: e4176dac66e34ab47a2f93b7b033d59d, type: 3}
       propertyPath: bounceForce
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

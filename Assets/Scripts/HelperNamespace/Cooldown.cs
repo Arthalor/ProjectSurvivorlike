@@ -27,12 +27,12 @@ namespace Helper
 
         public bool StartCooldown()
         {
-            if (cooldownClock >= 0) return false;
-            else
+            if (cooldownClock < 0)
             {
                 cooldownClock = cooldownTime;
                 return true;
             }
+            else return false;
         }
     }
 }
