@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
@@ -13,6 +14,13 @@ public class BulletBehaviour : MonoBehaviour
     {
         rb.velocity = transform.right * bulletSpeed;
         Destroy(gameObject, lifeTime);
+    }
+
+    public void SetStats(float _damage, float _bulletSpeed, float _bulletRange) 
+    {
+        damage = _damage;
+        bulletSpeed = _bulletSpeed;
+        lifeTime = _bulletRange / bulletSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

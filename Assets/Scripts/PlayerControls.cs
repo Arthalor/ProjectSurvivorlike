@@ -3,30 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerStats))]
 public class PlayerControls : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler = default;
-    [SerializeField] private int health = default;
-    [SerializeField] private float movementSpeed = default;
-    [SerializeField] private float gunDistance = default;
-    [SerializeField] private float invulnerabilityKnockback = default;
-    [SerializeField] private Cooldown hitInvulnerabilty = default;
-    [SerializeField] private Timer attackTimer = default;
+    [SerializeField] private PlayerStats playerStats = default;
 
     [SerializeField] private GameObject bulletPrefab = default;
     [SerializeField] private Transform gunBarrel = default;
+    [SerializeField] private float gunDistance = default;
 
-    private Rigidbody2D rb = default;
-    private PlayerInput input = default;
+    private Timer attackTimer;
+
+    private Rigidbody2D rb;
+    private PlayerInput input;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        attackTimer = new Timer(1 / playerStats.AttackSpeed);
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = movementSpeed * new Vector3(input.movement.x, input.movement.y, 0).normalized;
+        rb.velocity = playerStats.MovementSpeed * new Vector3(input.movement.x, input.movement.y, 0).normalized;
     }
 
     void Update()
@@ -36,7 +36,6 @@ public class PlayerControls : MonoBehaviour
         GunBehaviour();
 
         attackTimer.TickTimer(Time.deltaTime);
-        hitInvulnerabilty.TickClock(Time.deltaTime);
         if (input.shooting && attackTimer.TimerFinished()) 
         {
             Shoot();
@@ -46,7 +45,9 @@ public class PlayerControls : MonoBehaviour
     void Shoot() 
     {
         attackTimer.ResetTimer();
-        Instantiate(bulletPrefab, gunBarrel.position, gunBarrel.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, gunBarrel.position, gunBarrel.rotation);
+        BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+        bulletBehaviour.SetStats(playerStats.AttackDamage, playerStats.BulletSpeed, playerStats.BulletRange);
     }
 
     private void GunBehaviour() 
@@ -55,26 +56,5 @@ public class PlayerControls : MonoBehaviour
         gunBarrel.position = transform.position + gunDirection.normalized * gunDistance;
         float angle = (Mathf.Rad2Deg * Mathf.Atan2(gunDirection.y, gunDirection.x));
         gunBarrel.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
-
-    public void TakeDamage(int amount) 
-    {
-        if (!hitInvulnerabilty.StartCooldown()) return;
-        OnHitKnockback();
-        health -= amount;
-        if (health <= 0) GameManager.Instance.GameOver();
-    }
-
-    private void OnHitKnockback() 
-    {
-        Collider2D[] collidersInRange = Physics2D.OverlapCircleAll(transform.position, 3f);
-
-        foreach (Collider2D collider in collidersInRange)
-        {
-            if (collider.TryGetComponent(out BasicEnemyBehaviour enemy))
-            {
-                enemy.Knockback(enemy.PlayerDirection(), -1f * invulnerabilityKnockback);
-            }
-        }
     }
 }

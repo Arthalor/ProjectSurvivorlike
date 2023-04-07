@@ -53,7 +53,7 @@ public class BasicEnemyBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.TryGetComponent(out PlayerControls player))
+        if (collision.collider.TryGetComponent(out PlayerStats player))
         {
             player.TakeDamage(1);
         }

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 38555064}
   - component: {fileID: 38555062}
   - component: {fileID: 38555063}
+  - component: {fileID: 38555066}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -161,7 +162,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 04d3720a5a834164195e1dc7751a4803, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -182,12 +183,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 3427114271967980436, guid: ca606de70d1283b408269a86e8b39a6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.94, y: 1.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -234,16 +235,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 38555062}
-  health: 3
-  movementSpeed: 4
-  gunDistance: 0.5
-  invulnerabilityKnockback: 5
-  hitInvulnerabilty:
-    cooldownTime: 0.5
-  attackTimer:
-    maxTime: 0.5
+  playerStats: {fileID: 38555066}
   bulletPrefab: {fileID: 6541360136733734458, guid: 21346b828ad12af40890ba7a0095c0b1, type: 3}
   gunBarrel: {fileID: 501880356}
+  gunDistance: 0.5
 --- !u!58 &38555064
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -307,6 +302,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &38555066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38555059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33aa2f596a91e034f90b24fd61aa12b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AttackSpeed>k__BackingField: 2
+  <AttackDamage>k__BackingField: 5
+  <BulletSpeed>k__BackingField: 15
+  <BulletRange>k__BackingField: 5
+  <Projectiles>k__BackingField: 0
+  <BulletPierce>k__BackingField: 0
+  <Health>k__BackingField: 3
+  <MovementSpeed>k__BackingField: 4
+  invulnerabilityKnockback: 5
+  hitInvulnerabilty:
+    cooldownTime: 0.5
 --- !u!1 &501880355
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +459,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -684,6 +702,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a138adfb0d35a94438c44ba7ed7109ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1473475741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1473475743}
+  - component: {fileID: 1473475742}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1473475742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473475741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 8fe2566fbd8981343914a137a4ae3044, type: 2}
+--- !u!4 &1473475743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473475741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.5905347, y: 1.7384267, z: -0.498429}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &955504192865853734
 PrefabInstance:
   m_ObjectHideFlags: 0
