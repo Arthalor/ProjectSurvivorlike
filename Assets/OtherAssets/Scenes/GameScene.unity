@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 38555063}
   - component: {fileID: 38555066}
   - component: {fileID: 38555067}
+  - component: {fileID: 38555068}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -316,14 +317,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aa2f596a91e034f90b24fd61aa12b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AttackSpeed>k__BackingField: 2
-  <AttackDamage>k__BackingField: 5
-  <BulletSpeed>k__BackingField: 15
-  <BulletRange>k__BackingField: 5
-  <Projectiles>k__BackingField: 0
-  <BulletPierce>k__BackingField: 0
-  <Health>k__BackingField: 3
-  <MovementSpeed>k__BackingField: 4
+  <AttackSpeed>k__BackingField:
+    <Name>k__BackingField: Attack Speed
+    <BaseStat>k__BackingField: 2
+    <CalculatedStat>k__BackingField: 0
+  <AttackDamage>k__BackingField:
+    <Name>k__BackingField: Attack Damage
+    <BaseStat>k__BackingField: 5
+    <CalculatedStat>k__BackingField: 0
+  <BulletSpeed>k__BackingField:
+    <Name>k__BackingField: Bullet Speed
+    <BaseStat>k__BackingField: 15
+    <CalculatedStat>k__BackingField: 0
+  <BulletRange>k__BackingField:
+    <Name>k__BackingField: Bullet Range
+    <BaseStat>k__BackingField: 5
+    <CalculatedStat>k__BackingField: 0
+  <Projectiles>k__BackingField:
+    <Name>k__BackingField: Projectiles
+    <BaseStat>k__BackingField: 1
+    <CalculatedStat>k__BackingField: 0
+  <BulletPierce>k__BackingField:
+    <Name>k__BackingField: Bullet Pierce
+    <BaseStat>k__BackingField: 0
+    <CalculatedStat>k__BackingField: 0
+  <Health>k__BackingField:
+    <Name>k__BackingField: Health
+    <BaseStat>k__BackingField: 3
+    <CalculatedStat>k__BackingField: 0
+    CurrentStat: 0
+  <MovementSpeed>k__BackingField:
+    <Name>k__BackingField: Movement Speed
+    <BaseStat>k__BackingField: 5
+    <CalculatedStat>k__BackingField: 0
   invulnerabilityKnockback: 5
   hitInvulnerabilty:
     cooldownTime: 0.5
@@ -342,6 +368,20 @@ MonoBehaviour:
   tileSize: {x: 20, y: 20}
   tile: {fileID: 7887206654103468207, guid: a98bbc31d9675a84f88388ffeaf74888, type: 3}
   tileParent: {fileID: 1409282752}
+--- !u!114 &38555068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38555059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571502bcc2030c443a454466120f4fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: 9df990c2379b08d45b44ff9f7ef1bd9e, type: 2}
 --- !u!1 &501880355
 GameObject:
   m_ObjectHideFlags: 0

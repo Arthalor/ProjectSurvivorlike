@@ -1,22 +1,54 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Helper;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [field: SerializeField] public float AttackSpeed { get; private set; }
-    [field: SerializeField] public float AttackDamage { get; private set; }
-    [field: SerializeField] public float BulletSpeed { get; private set; }
-    [field: SerializeField] public float BulletRange { get; private set; }
-    [field: SerializeField] public float Projectiles { get; private set; }
-    [field: SerializeField] public float BulletPierce { get; private set; }
-    [field: SerializeField] public float Health { get; private set; }
-    [field: SerializeField] public float MovementSpeed { get; private set; }
+    [field: SerializeField] public Stat AttackSpeed { get; private set; }
+    [field: SerializeField] public Stat AttackDamage { get; private set; }
+    [field: SerializeField] public Stat BulletSpeed { get; private set; }
+    [field: SerializeField] public Stat BulletRange { get; private set; }
+    [field: SerializeField] public Stat Projectiles { get; private set; }
+    [field: SerializeField] public Stat BulletPierce { get; private set; }
+    [field: SerializeField] public TemporaryStat Health { get; private set; }
+    [field: SerializeField] public Stat MovementSpeed { get; private set; }
 
     [Space]
     [SerializeField] private float invulnerabilityKnockback = default;
     [SerializeField] private Cooldown hitInvulnerabilty = default;
+
+    private void Start()
+    {
+        Health.InitializeCurrent();
+        Inventory inv = GetComponent<Inventory>();
+        RecalculateStats(inv.items);
+    }
+
+    public void RecalculateStats() 
+    {
+        AttackSpeed.CalculateStat();
+        AttackDamage.CalculateStat();
+        BulletSpeed.CalculateStat();
+        BulletRange.CalculateStat();
+        Projectiles.CalculateStat();
+        BulletPierce.CalculateStat();
+        Health.CalculateStat();
+        MovementSpeed.CalculateStat();
+    }
+
+    public void RecalculateStats(List<Item> items) 
+    {
+        AttackSpeed.CalculateStat(items);
+        AttackDamage.CalculateStat(items);
+        BulletSpeed.CalculateStat(items);
+        BulletRange.CalculateStat(items);
+        Projectiles.CalculateStat(items);
+        BulletPierce.CalculateStat(items);
+        Health.CalculateStat(items);
+        MovementSpeed.CalculateStat(items);
+    }
 
     private void Update()
     {
@@ -27,8 +59,8 @@ public class PlayerStats : MonoBehaviour
     {
         if (!hitInvulnerabilty.StartCooldown()) return;
         OnHitKnockback();
-        Health -= amount;
-        if (Health <= 0) GameManager.Instance.GameOver();
+        Health.CurrentStat -= amount;
+        if (Health.CurrentStat <= 0) GameManager.Instance.GameOver();
     }
 
     private void OnHitKnockback()

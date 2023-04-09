@@ -21,12 +21,17 @@ public class PlayerControls : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        attackTimer = new Timer(1 / playerStats.AttackSpeed);
+        RecalculateAttackSpeed();
+    }
+
+    public void RecalculateAttackSpeed() 
+    {
+        attackTimer = new Timer(1 / playerStats.AttackSpeed.CalculatedStat);
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = playerStats.MovementSpeed * new Vector3(input.movement.x, input.movement.y, 0).normalized;
+        rb.velocity = playerStats.MovementSpeed.CalculatedStat * new Vector3(input.movement.x, input.movement.y, 0).normalized;
     }
 
     void Update()
@@ -47,7 +52,7 @@ public class PlayerControls : MonoBehaviour
         attackTimer.ResetTimer();
         GameObject bullet = Instantiate(bulletPrefab, gunBarrel.position, gunBarrel.rotation);
         BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
-        bulletBehaviour.SetStats(playerStats.AttackDamage, playerStats.BulletSpeed, playerStats.BulletRange);
+        bulletBehaviour.SetStats(playerStats.AttackDamage.CalculatedStat, playerStats.BulletSpeed.CalculatedStat, playerStats.BulletRange.CalculatedStat);
     }
 
     private void GunBehaviour() 
