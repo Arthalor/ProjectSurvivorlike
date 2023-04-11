@@ -21,21 +21,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        Health.InitializeCurrent();
         Inventory inv = GetComponent<Inventory>();
         RecalculateStats(inv.items);
-    }
-
-    public void RecalculateStats() 
-    {
-        AttackSpeed.CalculateStat();
-        AttackDamage.CalculateStat();
-        BulletSpeed.CalculateStat();
-        BulletRange.CalculateStat();
-        Projectiles.CalculateStat();
-        BulletPierce.CalculateStat();
-        Health.CalculateStat();
-        MovementSpeed.CalculateStat();
     }
 
     public void RecalculateStats(List<Item> items) 

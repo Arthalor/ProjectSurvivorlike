@@ -11,7 +11,7 @@ public class Stat
     [field: SerializeField] public float BaseStat { get; private set; }
     [field: SerializeField] public float CalculatedStat { get; private set; }
 
-    public void CalculateStat(List<Item> items)
+    public virtual void CalculateStat(List<Item> items)
     {
         float flatIncrease = 0;
         float factorIncrease = 1;
@@ -35,21 +35,25 @@ public class Stat
         }
         CalculatedStat = (BaseStat + flatIncrease) * factorIncrease;
     }
-
-    public void CalculateStat() 
-    {
-        CalculatedStat = BaseStat;
-    }
 }
 
 [Serializable]
 public class TemporaryStat : Stat 
 {
     public float CurrentStat;
+    private bool initialized = false;
+
+    public override void CalculateStat(List<Item> items)
+    {
+        base.CalculateStat(items);
+        if (!initialized)
+            InitializeCurrent();
+    }
 
     public void InitializeCurrent() 
     {
         CurrentStat = CalculatedStat;
+        initialized = true;
     }
 
     public void IncreaseCurrent(float amount) 

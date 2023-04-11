@@ -350,7 +350,7 @@ MonoBehaviour:
     <Name>k__BackingField: Movement Speed
     <BaseStat>k__BackingField: 5
     <CalculatedStat>k__BackingField: 0
-  invulnerabilityKnockback: 5
+  invulnerabilityKnockback: 10
   hitInvulnerabilty:
     cooldownTime: 0.5
 --- !u!114 &38555067
