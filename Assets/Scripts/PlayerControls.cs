@@ -24,9 +24,12 @@ public class PlayerControls : MonoBehaviour
         RecalculateAttackSpeed();
     }
 
-    public void RecalculateAttackSpeed() 
+    public void RecalculateAttackSpeed()
     {
-        attackTimer = new Timer(1 / playerStats.AttackSpeed.CalculatedStat);
+        if (playerStats.AttackSpeed.CalculatedStat <= 0)
+        {
+            attackTimer = new Timer(1 / playerStats.AttackSpeed.BaseStat);
+        }
     }
 
     private void FixedUpdate()

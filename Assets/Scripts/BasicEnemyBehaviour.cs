@@ -8,7 +8,9 @@ public class BasicEnemyBehaviour : MonoBehaviour
     [SerializeField] private float health = default;
     [SerializeField] private float moveSpeed = default;
     [SerializeField] private float bounceForce = default;
-
+    [Space]
+    [SerializeField] private GameObject damagePopUp = default;
+    
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
@@ -43,7 +45,15 @@ public class BasicEnemyBehaviour : MonoBehaviour
     public void TakeDamage(float damage) 
     {
         health -= damage;
+        DamagePopUp(damage);
         if (health <= 0) Die();
+    }
+
+    private void DamagePopUp(float damage) 
+    {
+        Vector2 spawnPoint = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle;
+        GameObject popUp = Instantiate(damagePopUp, spawnPoint, Quaternion.identity);
+        popUp.GetComponent<DamageNumbersBehaviour>().SetText("" + damage);
     }
 
     private void Die() 
