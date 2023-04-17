@@ -8,10 +8,13 @@ public class PlayerControls : MonoBehaviour
 {
     [SerializeField] private PlayerInputHandler inputHandler = default;
     [SerializeField] private PlayerStats playerStats = default;
-
+    [Space]
     [SerializeField] private GameObject bulletPrefab = default;
     [SerializeField] private Transform gunBarrel = default;
     [SerializeField] private float gunDistance = default;
+    [Space]
+    [SerializeField] private AudioClip shootSound = default;
+    [SerializeField] private AudioSource shootSource = default;
 
     private Timer attackTimer;
 
@@ -52,6 +55,8 @@ public class PlayerControls : MonoBehaviour
 
     void Shoot() 
     {
+        shootSource.clip = shootSound;
+        shootSource.Play();
         attackTimer.ResetTimer();
         GameObject bullet = Instantiate(bulletPrefab, gunBarrel.position, gunBarrel.rotation);
         BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();

@@ -18,6 +18,9 @@ public class PlayerStats : MonoBehaviour
     [Space]
     [SerializeField] private float invulnerabilityKnockback = default;
     [SerializeField] private Cooldown hitInvulnerabilty = default;
+    [Space]
+    [SerializeField] private AudioClip hurtSound = default;
+    [SerializeField] private AudioSource hurtSource = default;
 
     private void Start()
     {
@@ -44,6 +47,8 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        hurtSource.clip = hurtSound;
+        hurtSource.Play();
         if (!hitInvulnerabilty.StartCooldown()) return;
         OnHitKnockback();
         Health.CurrentStat -= amount;
