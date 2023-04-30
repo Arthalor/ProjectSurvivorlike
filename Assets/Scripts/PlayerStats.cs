@@ -21,6 +21,8 @@ public class PlayerStats : MonoBehaviour
     [Space]
     [SerializeField] private AudioClip hurtSound = default;
     [SerializeField] private AudioSource hurtSource = default;
+    [Space]
+    [SerializeField] private int experience = 0;
 
     private void Start()
     {
@@ -43,6 +45,7 @@ public class PlayerStats : MonoBehaviour
     private void Update()
     {
         hitInvulnerabilty.TickClock(Time.deltaTime);
+        AttractExperience();
     }
 
     public void TakeDamage(int amount)
@@ -53,6 +56,23 @@ public class PlayerStats : MonoBehaviour
         OnHitKnockback();
         Health.CurrentStat -= amount;
         if (Health.CurrentStat <= 0) GameManager.Instance.GameOver();
+    }
+
+    public void AttractExperience()
+    {
+        Collider2D[] collidersInRange = Physics2D.OverlapCircleAll(transform.position, 5f);
+        foreach (Collider2D collider in collidersInRange) 
+        {
+            if (collider.TryGetComponent(out ExperienceBehaviour expBehaviour)) 
+            {
+                expBehaviour.PickUp();
+            }
+        }
+    }
+
+    public void PickUpExperience(int amount) 
+    {
+        experience += amount;
     }
 
     private void OnHitKnockback()

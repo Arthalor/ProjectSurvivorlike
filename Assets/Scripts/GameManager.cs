@@ -21,6 +21,13 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public Transform player = default;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player").transform;
+    }
+
     public void GameOver() 
     {
         Helper.ReloadCurrentScene.Reload();

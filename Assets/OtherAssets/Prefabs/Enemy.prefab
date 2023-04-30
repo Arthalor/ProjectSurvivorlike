@@ -103,6 +103,7 @@ MonoBehaviour:
   moveSpeed: 3.5
   bounceForce: 0
   damagePopUp: {fileID: 4328106766055402333, guid: 95602a7f422b7a446b731e7891006b41, type: 3}
+  experience: {fileID: 1856974619349259730, guid: 3c9246b2052f0ab4a8975ab620ef5fbb, type: 3}
 --- !u!50 &1424528118109421682
 Rigidbody2D:
   serializedVersion: 4
@@ -128,7 +129,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!58 &6456407346565523707
 CircleCollider2D:
