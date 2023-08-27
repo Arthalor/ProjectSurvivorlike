@@ -21,6 +21,11 @@ namespace Helper
             return SqrDistance(a, b) < Mathf.Pow(compareDistance, 2);
         }
 
+        public static bool SqrMagnitudeSmaller(Vector2 a, float compareValue) 
+        {
+            return Vector3.SqrMagnitude(a) < Mathf.Pow(compareValue, 2);
+        }
+
         public static Vector2 VectorFromAtoB(Vector2 a, Vector2 b) 
         {
             return b - a;

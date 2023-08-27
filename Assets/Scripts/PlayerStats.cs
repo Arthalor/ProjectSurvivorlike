@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Helper;
 using UnityEngine;
@@ -58,6 +57,18 @@ public class PlayerStats : MonoBehaviour
         if (Health.CurrentStat <= 0) GameManager.Instance.GameOver();
     }
 
+    public int Level() 
+    {
+        //Formula for Level is derived from Xp needed ((3xp + Level*xp) per Level)
+        int i = (int)Mathf.Max((-2.5f + Mathf.Sqrt(6.25f + 2 * experience)) / 1, (-2.5f - Mathf.Sqrt(6.25f + 2 * experience)) / 1);
+        return i;
+    }
+
+    public int XPtoNextLevel() 
+    {
+        return 3 + Level();
+    }
+
     public void AttractExperience()
     {
         Collider2D[] collidersInRange = Physics2D.OverlapCircleAll(transform.position, 5f);
@@ -73,6 +84,7 @@ public class PlayerStats : MonoBehaviour
     public void PickUpExperience(int amount) 
     {
         experience += amount;
+        Debug.Log(Level());
     }
 
     private void OnHitKnockback()
