@@ -22,6 +22,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioSource hurtSource = default;
     [Space]
     [SerializeField] private int experience = 0;
+    [Space]
+    [SerializeField] private InGameUI inGameUI = default;
 
     private void Start()
     {
@@ -54,6 +56,7 @@ public class PlayerStats : MonoBehaviour
         if (!hitInvulnerabilty.StartCooldown()) return;
         OnHitKnockback();
         Health.CurrentStat -= amount;
+        inGameUI.UpdateHealthBar(Health.BaseStat, Health.CurrentStat);
         if (Health.CurrentStat <= 0) GameManager.Instance.GameOver();
     }
 
@@ -67,6 +70,17 @@ public class PlayerStats : MonoBehaviour
     public int XPtoNextLevel() 
     {
         return 3 + Level();
+    }
+
+    public int CumulativeXPtoCurrentLevel() 
+    {
+        if (Level() <= 0) return 0;
+        int returnValue = 0;
+        for (int i = 0; i < Level(); i++) 
+        {
+            returnValue += 3 + i;
+        }
+        return returnValue;
     }
 
     public void AttractExperience()
@@ -84,7 +98,7 @@ public class PlayerStats : MonoBehaviour
     public void PickUpExperience(int amount) 
     {
         experience += amount;
-        Debug.Log(Level());
+        inGameUI.UpdateExpBar(XPtoNextLevel(), experience - CumulativeXPtoCurrentLevel());
     }
 
     private void OnHitKnockback()
