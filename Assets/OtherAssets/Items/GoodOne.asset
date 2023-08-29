@@ -10,13 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fc03d760346d0c4c83a502b54d0efa7, type: 3}
-  m_Name: BetterBullets
+  m_Name: GoodOne
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 0}
   <modifiers>k__BackingField:
   - <StatName>k__BackingField: Attack Damage
-    <Value>k__BackingField: 2
+    <Value>k__BackingField: 1
     <Type>k__BackingField: 0
-  - <StatName>k__BackingField: BulletSpeed
-    <Value>k__BackingField: -1
+  - <StatName>k__BackingField: Movement Speed
+    <Value>k__BackingField: 0.1
+    <Type>k__BackingField: 0
+  - <StatName>k__BackingField: AttackSpeed
+    <Value>k__BackingField: 1
+    <Type>k__BackingField: 0
+  - <StatName>k__BackingField: Bullet Speed
+    <Value>k__BackingField: 1
     <Type>k__BackingField: 0
