@@ -11,6 +11,7 @@ public class BasicEnemyBehaviour : MonoBehaviour
     [Space]
     [SerializeField] private GameObject damagePopUp = default;
     [SerializeField] private GameObject experience = default;
+    [SerializeField] private GameObject itemObject = default;
     
     private Transform player;
     private Rigidbody2D rb;
@@ -60,7 +61,15 @@ public class BasicEnemyBehaviour : MonoBehaviour
     private void Die() 
     {
         Vector2 spawnPoint = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.5f;
-        GameObject xp = Instantiate(experience, spawnPoint, Quaternion.identity);
+        float random = Random.Range(0f, 1f);
+        if (random > 0.33f)
+        {
+            GameObject xp = Instantiate(experience, spawnPoint, Quaternion.identity);
+        }
+        else
+        {
+            GameObject item = Instantiate(itemObject, spawnPoint, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

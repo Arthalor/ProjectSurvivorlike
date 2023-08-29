@@ -27,20 +27,22 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        Inventory inv = GetComponent<Inventory>();
-        RecalculateStats(inv.items);
+        RecalculateStats();
     }
 
-    public void RecalculateStats(List<Item> items) 
+    public void RecalculateStats() 
     {
-        AttackSpeed.CalculateStat(items);
-        AttackDamage.CalculateStat(items);
-        BulletSpeed.CalculateStat(items);
-        BulletRange.CalculateStat(items);
-        Projectiles.CalculateStat(items);
-        BulletPierce.CalculateStat(items);
-        Health.CalculateStat(items);
-        MovementSpeed.CalculateStat(items);
+        Inventory inv = GetComponent<Inventory>();
+        AttackSpeed.CalculateStat(inv.items);
+        AttackDamage.CalculateStat(inv.items);
+        BulletSpeed.CalculateStat(inv.items);
+        BulletRange.CalculateStat(inv.items);
+        Projectiles.CalculateStat(inv.items);
+        BulletPierce.CalculateStat(inv.items);
+        Health.CalculateStat(inv.items);
+        MovementSpeed.CalculateStat(inv.items);
+        if (GameManager.Instance.player == null) return;
+        GameManager.Instance.player.GetComponent<PlayerControls>().RecalculateAttackSpeed();
     }
 
     private void Update()

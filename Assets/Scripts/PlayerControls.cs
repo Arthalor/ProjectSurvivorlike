@@ -24,15 +24,23 @@ public class PlayerControls : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        RecalculateAttackSpeed();
+        InitializeAttackSpeed();
     }
 
-    public void RecalculateAttackSpeed()
+    void InitializeAttackSpeed() 
     {
         if (playerStats.AttackSpeed.CalculatedStat <= 0)
         {
             attackTimer = new Timer(1 / playerStats.AttackSpeed.BaseStat);
         }
+    }
+
+    public void RecalculateAttackSpeed()
+    {
+        string name = playerStats.AttackSpeed.Name;
+        float bStat = playerStats.AttackSpeed.BaseStat;
+        float cStat = playerStats.AttackSpeed.CalculatedStat;
+        attackTimer = new Timer(1 / playerStats.AttackSpeed.CalculatedStat);
     }
 
     private void FixedUpdate()

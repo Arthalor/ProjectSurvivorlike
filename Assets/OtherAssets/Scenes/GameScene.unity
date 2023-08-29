@@ -388,8 +388,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571502bcc2030c443a454466120f4fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
+  possibleItems:
   - {fileID: 11400000, guid: 9df990c2379b08d45b44ff9f7ef1bd9e, type: 2}
+  - {fileID: 11400000, guid: a86918259d696bd489ee574813aa86dc, type: 2}
+  - {fileID: 11400000, guid: 05e3373cd1347b44095ed96abbc4aae9, type: 2}
+  items: []
 --- !u!82 &38555069
 AudioSource:
   m_ObjectHideFlags: 0
