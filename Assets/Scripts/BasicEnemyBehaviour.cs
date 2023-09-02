@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Helper.VectorFunctions;
+using static Helper.SpriteRendererFunctions;
 
 public class BasicEnemyBehaviour : MonoBehaviour
 {
@@ -16,15 +17,18 @@ public class BasicEnemyBehaviour : MonoBehaviour
     private Transform player;
     private Rigidbody2D rb;
     private Vector2 currentVelocity;
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        FlipSpriteToMovement(spriteRenderer, rb.velocityX);
         AccelerateTowardsPlayer();
     }
 

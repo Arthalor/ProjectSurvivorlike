@@ -1,4 +1,5 @@
 using Helper;
+using static Helper.SpriteRendererFunctions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,10 +21,12 @@ public class PlayerControls : MonoBehaviour
 
     private Rigidbody2D rb;
     private PlayerInput input;
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         InitializeAttackSpeed();
     }
 
@@ -50,6 +53,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+        FlipSpriteToMovement(spriteRenderer, rb.velocityX);
         input = inputHandler.Input();
 
         GunBehaviour();
