@@ -323,35 +323,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AttackSpeed>k__BackingField:
     <Name>k__BackingField: Attack Speed
+    <StatType>k__BackingField: 1
     <BaseStat>k__BackingField: 2
     <CalculatedStat>k__BackingField: 0
   <AttackDamage>k__BackingField:
     <Name>k__BackingField: Attack Damage
+    <StatType>k__BackingField: 0
     <BaseStat>k__BackingField: 5
     <CalculatedStat>k__BackingField: 0
   <BulletSpeed>k__BackingField:
     <Name>k__BackingField: Bullet Speed
+    <StatType>k__BackingField: 2
     <BaseStat>k__BackingField: 15
     <CalculatedStat>k__BackingField: 0
   <BulletRange>k__BackingField:
     <Name>k__BackingField: Bullet Range
+    <StatType>k__BackingField: 3
     <BaseStat>k__BackingField: 5
     <CalculatedStat>k__BackingField: 0
   <Projectiles>k__BackingField:
     <Name>k__BackingField: Projectiles
+    <StatType>k__BackingField: 6
     <BaseStat>k__BackingField: 1
     <CalculatedStat>k__BackingField: 0
   <BulletPierce>k__BackingField:
     <Name>k__BackingField: Bullet Pierce
+    <StatType>k__BackingField: 7
     <BaseStat>k__BackingField: 0
     <CalculatedStat>k__BackingField: 0
   <Health>k__BackingField:
     <Name>k__BackingField: Health
+    <StatType>k__BackingField: 4
     <BaseStat>k__BackingField: 3
     <CalculatedStat>k__BackingField: 0
     CurrentStat: 0
   <MovementSpeed>k__BackingField:
     <Name>k__BackingField: Movement Speed
+    <StatType>k__BackingField: 5
     <BaseStat>k__BackingField: 5
     <CalculatedStat>k__BackingField: 0
   invulnerabilityKnockback: 10

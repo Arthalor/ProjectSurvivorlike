@@ -8,6 +8,7 @@ using UnityEngine;
 public class Stat
 {
     [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public StatType StatType {get; private set;}
     [field: SerializeField] public float BaseStat { get; private set; }
     [field: SerializeField] public float CalculatedStat { get; private set; }
 
@@ -19,7 +20,7 @@ public class Stat
         {
             foreach (StatModifier modifier in item.modifiers)
             {
-                if (modifier.StatName.Equals(Name))
+                if (modifier.StatType.Equals(StatType))
                 {
                     switch (modifier.Type)
                     {
@@ -70,7 +71,7 @@ public class TemporaryStat : Stat
 [Serializable]
 public class StatModifier
 {
-    [field: SerializeField] public string StatName { get; private set; }
+    [field: SerializeField] public StatType StatType { get; private set; }
     [field: SerializeField] public float Value { get; private set; }
     [field: SerializeField] public ModifierType Type { get; private set; }
 }
@@ -79,4 +80,16 @@ public enum ModifierType
 {
     Flat,
     Multiplier,
+}
+
+public enum StatType 
+{
+    BulletDamage,
+    FireRate,
+    BulletSpeed,
+    BulletRange,
+    Health,
+    MovementSpeed,
+    Projectiles,
+    BulletPierce,
 }

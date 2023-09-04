@@ -15,14 +15,18 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 0}
   <modifiers>k__BackingField:
   - <StatName>k__BackingField: Attack Damage
+    <StatType>k__BackingField: 0
     <Value>k__BackingField: 1
     <Type>k__BackingField: 0
   - <StatName>k__BackingField: Movement Speed
+    <StatType>k__BackingField: 5
     <Value>k__BackingField: 0.1
     <Type>k__BackingField: 0
   - <StatName>k__BackingField: AttackSpeed
+    <StatType>k__BackingField: 1
     <Value>k__BackingField: 1
     <Type>k__BackingField: 0
   - <StatName>k__BackingField: Bullet Speed
+    <StatType>k__BackingField: 2
     <Value>k__BackingField: 1
     <Type>k__BackingField: 0

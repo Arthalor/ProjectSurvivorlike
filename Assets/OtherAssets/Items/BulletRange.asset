@@ -15,5 +15,6 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 0}
   <modifiers>k__BackingField:
   - <StatName>k__BackingField: Bullet Range
+    <StatType>k__BackingField: 3
     <Value>k__BackingField: 4
     <Type>k__BackingField: 0
