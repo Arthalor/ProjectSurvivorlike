@@ -59,7 +59,18 @@ public class PlayerStats : MonoBehaviour
         OnHitKnockback();
         Health.CurrentStat -= amount;
         inGameUI.UpdateHealthBar(Health.BaseStat, Health.CurrentStat);
-        if (Health.CurrentStat <= 0) GameManager.Instance.GameOver();
+        if (Health.CurrentStat <= 0) Die();
+    }
+
+    private void Die()
+    {
+        GameManager.Instance.GameOver();
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<PlayerControls>().enabled = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        GetComponent<CircleCollider2D>().enabled = false;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+
     }
 
     public int Level() 

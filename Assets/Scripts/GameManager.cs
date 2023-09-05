@@ -23,12 +23,19 @@ public class GameManager : MonoBehaviour
 
     public Transform player = default;
 
+    [SerializeField] private GameObject deathUI = default;
+
     private void Start()
     {
         player = GameObject.Find("Player").transform;
     }
 
     public void GameOver() 
+    {
+        deathUI.SetActive(true);
+    }
+
+    public void ReloadScene() 
     {
         Helper.ReloadCurrentScene.Reload();
     }
