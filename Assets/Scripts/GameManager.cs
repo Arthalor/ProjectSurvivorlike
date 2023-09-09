@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Helper;
+using UnityEditor;
+using System.ComponentModel;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,21 +24,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public Transform player = default;
-
-    [SerializeField] private GameObject deathUI = default;
+    public GamePlayManager gamePlayManager = default;
 
     private void Start()
     {
         player = GameObject.Find("Player").transform;
-    }
-
-    public void GameOver() 
-    {
-        deathUI.SetActive(true);
+        gamePlayManager = GameObject.Find("SceneManager").GetComponent<GamePlayManager>();
     }
 
     public void ReloadScene() 
     {
-        Helper.ReloadCurrentScene.Reload();
+        ReloadCurrentScene.Reload();
     }
 }

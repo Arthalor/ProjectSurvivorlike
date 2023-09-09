@@ -64,13 +64,12 @@ public class PlayerStats : MonoBehaviour
 
     private void Die()
     {
-        GameManager.Instance.GameOver();
+        GameManager.Instance.gamePlayManager.GameLost();
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<PlayerControls>().enabled = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<CircleCollider2D>().enabled = false;
         transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-
     }
 
     public int Level() 
