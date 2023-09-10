@@ -24,11 +24,26 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int experience = 0;
     [Space]
     [SerializeField] private InGameUI inGameUI = default;
+    [Space(10)]
+    public List<Stat> statList;
 
     private void Start()
     {
         RecalculateStats();
+        statList = ListStats();
     }
+
+    private List<Stat> ListStats() 
+    {
+        List<Stat> returnList = new List<Stat>();
+        returnList.Add(Health);
+        returnList.Add(AttackDamage);
+        returnList.Add(AttackSpeed);
+        returnList.Add(BulletSpeed);
+        returnList.Add(BulletRange);
+        returnList.Add(MovementSpeed);
+        return returnList;
+    } 
 
     public void RecalculateStats() 
     {

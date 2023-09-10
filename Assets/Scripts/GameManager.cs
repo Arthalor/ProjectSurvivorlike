@@ -26,14 +26,45 @@ public class GameManager : MonoBehaviour
     public Transform player = default;
     public GamePlayManager gamePlayManager = default;
 
+    private bool isPaused = false;
+
     private void Start()
     {
         player = GameObject.Find("Player").transform;
         gamePlayManager = GameObject.Find("SceneManager").GetComponent<GamePlayManager>();
     }
 
+    public bool IsPaused() 
+    {
+        return isPaused;
+    }
+
+    public void TogglePause() 
+    {
+        if (isPaused) UnPause();
+        else Pause();
+    }
+
+    public void UnPause() 
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+    }
+
+    public void Pause() 
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+    }
+
     public void ReloadScene() 
     {
+        UnPause();
         ReloadCurrentScene.Reload();
+    }
+
+    public void QuitGame() 
+    {
+        Application.Quit();
     }
 }

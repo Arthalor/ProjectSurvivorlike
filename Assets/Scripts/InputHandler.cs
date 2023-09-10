@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour
+public class InputHandler : MonoBehaviour
 {
     private Controls actions;
 
@@ -17,7 +17,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         actions.Player.Shooting.performed += context => shootingInput = true;
         actions.Player.Shooting.canceled += context => shootingInput = false;
-    
+
+        actions.Game.Pause.performed += PauseKeyPressed;
+
         mainCamera = Camera.main;
     }
 
@@ -32,11 +34,18 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnEnable()
     {
         actions.Player.Enable();
+        actions.Game.Enable();
     }
 
     private void OnDisable()
     {
         actions.Player.Disable();
+        actions.Game.Disable();
+    }
+
+    private void PauseKeyPressed(InputAction.CallbackContext context) 
+    {
+        GameManager.Instance.gamePlayManager.PauseKeyPressed();
     }
 }
 

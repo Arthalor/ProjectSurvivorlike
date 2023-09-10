@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerStats))]
 public class PlayerControls : MonoBehaviour
 {
-    [SerializeField] private PlayerInputHandler inputHandler = default;
+    [SerializeField] private InputHandler inputHandler = default;
     [SerializeField] private PlayerStats playerStats = default;
     [Space]
     [SerializeField] private GameObject bulletPrefab = default;
