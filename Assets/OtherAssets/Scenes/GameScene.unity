@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 38555066}
   - component: {fileID: 38555067}
   - component: {fileID: 38555068}
+  - component: {fileID: 38555070}
   - component: {fileID: 38555069}
   m_Layer: 0
   m_Name: Player
@@ -399,7 +400,6 @@ MonoBehaviour:
     cooldownTime: 0.5
   hurtSound: {fileID: 8300000, guid: dbda8c249e374c74bbc17ba8c4933c6d, type: 3}
   hurtSource: {fileID: 38555069}
-  experience: 0
   inGameUI: {fileID: 1236702512}
   statList: []
 --- !u!114 &38555067
@@ -534,6 +534,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &38555070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38555059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1350b6e707982514c9df43b838dddd0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  experience: 0
+  experienceToNextLevel: 0
+  level: 0
+  inGameUI: {fileID: 1236702512}
 --- !u!1 &47411001
 GameObject:
   m_ObjectHideFlags: 0

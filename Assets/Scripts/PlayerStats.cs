@@ -21,8 +21,6 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioClip hurtSound = default;
     [SerializeField] private AudioSource hurtSource = default;
     [Space]
-    [SerializeField] private int experience = 0;
-    [Space]
     [SerializeField] private InGameUI inGameUI = default;
     [Space(10)]
     public List<Stat> statList;
@@ -63,7 +61,6 @@ public class PlayerStats : MonoBehaviour
     private void Update()
     {
         hitInvulnerabilty.TickClock(Time.deltaTime);
-        AttractExperience();
     }
 
     public void TakeDamage(int amount)
@@ -85,47 +82,6 @@ public class PlayerStats : MonoBehaviour
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<CircleCollider2D>().enabled = false;
         transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-    }
-
-    public int Level() 
-    {
-        //Formula for Level is derived from Xp needed ((3xp + Level*xp) per Level)
-        int i = (int)Mathf.Max((-2.5f + Mathf.Sqrt(6.25f + 2 * experience)) / 1, (-2.5f - Mathf.Sqrt(6.25f + 2 * experience)) / 1);
-        return i;
-    }
-
-    public int XPtoNextLevel() 
-    {
-        return 3 + Level();
-    }
-
-    public int CumulativeXPtoCurrentLevel() 
-    {
-        if (Level() <= 0) return 0;
-        int returnValue = 0;
-        for (int i = 0; i < Level(); i++) 
-        {
-            returnValue += 3 + i;
-        }
-        return returnValue;
-    }
-
-    public void AttractExperience()
-    {
-        Collider2D[] collidersInRange = Physics2D.OverlapCircleAll(transform.position, 5f);
-        foreach (Collider2D collider in collidersInRange) 
-        {
-            if (collider.TryGetComponent(out ExperienceBehaviour expBehaviour)) 
-            {
-                expBehaviour.PickUp();
-            }
-        }
-    }
-
-    public void PickUpExperience(int amount) 
-    {
-        experience += amount;
-        inGameUI.UpdateExpBar(XPtoNextLevel(), experience - CumulativeXPtoCurrentLevel());
     }
 
     private void OnHitKnockback()
