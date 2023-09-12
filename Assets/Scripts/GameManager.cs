@@ -4,6 +4,7 @@ using UnityEngine;
 using Helper;
 using UnityEditor;
 using System.ComponentModel;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -61,6 +62,11 @@ public class GameManager : MonoBehaviour
     {
         UnPause();
         ReloadCurrentScene.Reload();
+    }
+
+    public void LoadMainMenu() 
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame() 
