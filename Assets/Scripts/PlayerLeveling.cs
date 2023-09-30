@@ -48,4 +48,9 @@ public class PlayerLeveling : MonoBehaviour
         level++;
         experienceToNextLevel = 0;
     }
+
+    public int GetCurrentExperience() 
+    {
+        return experience;
+    }
 }

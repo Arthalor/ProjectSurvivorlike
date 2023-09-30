@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Helper;
-using UnityEngine.Rendering.Universal;
+using TMPro;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -12,6 +12,9 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private GameObject pauseUI = default;
     [SerializeField] private GameObject statUI = default;
     [SerializeField] private InGameUI inGameUI = default;
+    [Space]
+    [SerializeField] private PlayerLeveling playerLeveling;
+    [SerializeField] private TextMeshProUGUI experienceText = default;
     [Space]
     [SerializeField] private Timer winTimer = default;
     [Space]
@@ -30,9 +33,9 @@ public class GamePlayManager : MonoBehaviour
     {
         if (endlessMode) return;
 
-        winTimer.TickTimer(Time.deltaTime);
+        winTimer.Tick(Time.deltaTime);
 
-        if (winTimer.TimerFinished()) GameWon();
+        if (winTimer.Finished()) GameWon();
     }
 
     public void GameWon()
@@ -43,6 +46,7 @@ public class GamePlayManager : MonoBehaviour
         GameManager.Instance.Pause();
         playerControls.enabled = false;
         ShowStatUI(true);
+        UpdatePostGameUI();
     }
 
     public void ContinueEndless() 
@@ -62,6 +66,7 @@ public class GamePlayManager : MonoBehaviour
         deathUI.SetActive(true);
         sharedUI.SetActive(true);
         ShowStatUI(true);
+        UpdatePostGameUI();
     }
 
     public void PauseKeyPressed() 
@@ -79,5 +84,10 @@ public class GamePlayManager : MonoBehaviour
     {
         inGameUI.UpdateStatUI();
         statUI.SetActive(show);
+    }
+
+    public void UpdatePostGameUI()
+    {
+        experienceText.text = "Experience Collected: " + playerLeveling.GetCurrentExperience();
     }
 }

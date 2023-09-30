@@ -15,25 +15,31 @@ namespace Helper
             maxTime = _maxTime;
         }
 
-        public void ResetTimer() 
+        public Timer(float _maxTime, float initializedTime) 
+        {
+            maxTime = _maxTime;
+            timer = initializedTime;
+        }
+
+        public void Reset() 
         {
             timer = 0;
         }
 
-        public void TickTimer(float deltaTime) 
+        public void Tick(float deltaTime) 
         {
             timer += deltaTime;
             if (timer > maxTime) timer = maxTime;
         }
 
-        public float TimerProgress() 
+        public float Progress() 
         {
             return timer / maxTime;
         }
 
-        public bool TimerFinished() 
+        public bool Finished() 
         {
-            return TimerProgress() >= 1;
+            return Progress() >= 1;
         }
 
         public float GetMaxTime() 

@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
 {
     [field: SerializeField] public Stat AttackSpeed { get; private set; }
     [field: SerializeField] public Stat AttackDamage { get; private set; }
+    [field: SerializeField] public Stat MaxAmmo { get; private set; }
+    [field: SerializeField] public Stat ReloadTime { get; private set; }
     [field: SerializeField] public Stat BulletSpeed { get; private set; }
     [field: SerializeField] public Stat BulletRange { get; private set; }
     [field: SerializeField] public Stat Projectiles { get; private set; }
@@ -33,13 +35,17 @@ public class PlayerStats : MonoBehaviour
 
     private List<Stat> ListStats() 
     {
-        List<Stat> returnList = new List<Stat>();
-        returnList.Add(Health);
-        returnList.Add(AttackDamage);
-        returnList.Add(AttackSpeed);
-        returnList.Add(BulletSpeed);
-        returnList.Add(BulletRange);
-        returnList.Add(MovementSpeed);
+        List<Stat> returnList = new List<Stat>
+        {
+            Health,
+            AttackDamage,
+            AttackSpeed,
+            MaxAmmo,
+            ReloadTime,
+            BulletSpeed,
+            BulletRange,
+            MovementSpeed,
+        };
         return returnList;
     } 
 
@@ -54,6 +60,8 @@ public class PlayerStats : MonoBehaviour
         BulletPierce.CalculateStat(inv.items);
         Health.CalculateStat(inv.items);
         MovementSpeed.CalculateStat(inv.items);
+        MaxAmmo.CalculateStat(inv.items);
+        ReloadTime.CalculateStat(inv.items);
         if (GameManager.Instance.player == null) return;
         GameManager.Instance.player.GetComponent<PlayerControls>().RecalculateAttackSpeed();
     }

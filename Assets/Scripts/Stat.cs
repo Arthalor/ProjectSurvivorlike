@@ -92,4 +92,6 @@ public enum StatType
     MovementSpeed,
     Projectiles,
     BulletPierce,
+    MaxAmmo,
+    ReloadTime,
 }
