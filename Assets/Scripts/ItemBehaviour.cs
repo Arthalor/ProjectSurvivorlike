@@ -29,7 +29,6 @@ public class ItemBehaviour : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Collider2D>().enabled = false;
             GameManager.Instance.player.GetComponent<Inventory>().PickUpItem();
-            GameManager.Instance.player.GetComponent<PlayerStats>().RecalculateStats();
             Destroy(gameObject, 1);
         }
     }

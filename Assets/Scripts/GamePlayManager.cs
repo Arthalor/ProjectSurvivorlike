@@ -11,10 +11,9 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private GameObject sharedUI = default;
     [SerializeField] private GameObject pauseUI = default;
     [SerializeField] private GameObject statUI = default;
+    [SerializeField] private GameObject levelUpUI = default;
     [SerializeField] private InGameUI inGameUI = default;
     [Space]
-    [SerializeField] private PlayerLeveling playerLeveling;
-    [SerializeField] private TextMeshProUGUI experienceText = default;
     [Space]
     [SerializeField] private Timer winTimer = default;
     [Space]
@@ -31,11 +30,27 @@ public class GamePlayManager : MonoBehaviour
 
     private void Update()
     {
+        playerControls.enabled = !GameManager.Instance.IsPaused();
+
         if (endlessMode) return;
 
         winTimer.Tick(Time.deltaTime);
 
         if (winTimer.Finished()) GameWon();
+    }
+
+    public void LevelUpEvent() 
+    {
+        pauseBlock = true;
+        GameManager.Instance.Pause();
+        levelUpUI.SetActive(true);
+        inGameUI.UpdateLevelUpUI();
+    }
+
+    public void LevelUpCompleted()
+    {
+        levelUpUI.SetActive(false);
+        GameManager.Instance.UnPause();
     }
 
     public void GameWon()
@@ -44,7 +59,6 @@ public class GamePlayManager : MonoBehaviour
         winUI.SetActive(true);
         sharedUI.SetActive(true);
         GameManager.Instance.Pause();
-        playerControls.enabled = false;
         ShowStatUI(true);
         UpdatePostGameUI();
     }
@@ -54,7 +68,6 @@ public class GamePlayManager : MonoBehaviour
         pauseBlock = false;
         endlessMode = true;
         GameManager.Instance.UnPause();
-        playerControls.enabled = true;
         winUI.SetActive(false);
         sharedUI.SetActive(false);
         ShowStatUI(false);
@@ -76,7 +89,6 @@ public class GamePlayManager : MonoBehaviour
         bool pauseState = GameManager.Instance.IsPaused();
         ShowStatUI(!pauseState);
         pauseUI.SetActive(!pauseState);
-        playerControls.enabled = pauseState;
         GameManager.Instance.TogglePause();
     }
 
@@ -88,6 +100,6 @@ public class GamePlayManager : MonoBehaviour
 
     public void UpdatePostGameUI()
     {
-        experienceText.text = "Experience Collected: " + playerLeveling.GetCurrentExperience();
+        inGameUI.UpdatePostGameUI();
     }
 }

@@ -11,12 +11,18 @@ public class Inventory : MonoBehaviour
 
     public void PickUpItem(Item item) 
     {
-        items.Add(item);
+        AddItemToInvetory(item);
     }
 
     public void PickUpItem() 
     {
         int randomIndex = Random.Range(0, possibleItems.Count);
-        items.Add(possibleItems[randomIndex]);
+        AddItemToInvetory(possibleItems[randomIndex]);
+    }
+
+    private void AddItemToInvetory(Item item) 
+    {
+        items.Add(item);
+        GetComponent<PlayerStats>().RecalculateStats();
     }
 }

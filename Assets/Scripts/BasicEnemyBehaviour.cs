@@ -66,7 +66,7 @@ public class BasicEnemyBehaviour : MonoBehaviour
     {
         Vector2 spawnPoint = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle * 0.5f;
         float random = Random.Range(0f, 1f);
-        if (random > 0.33f)
+        if (random > 0.1f)
         {
             GameObject xp = Instantiate(experience, spawnPoint, Quaternion.identity);
         }

@@ -9,7 +9,9 @@ public class InGameUI : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
     [SerializeField] private Image expBar;
-
+    [SerializeField] private TextMeshProUGUI experienceText = default;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [Space(10)]
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private GameObject statContainerUI = default;
     [SerializeField] private GameObject statContainerLayout = default;
@@ -30,6 +32,11 @@ public class InGameUI : MonoBehaviour
         expBar.fillAmount = currentAmount / baseAmount;
     }
 
+    public void UpdateLevelUpUI()
+    {
+        levelText.text = "Level " + playerStats.GetComponent<PlayerLeveling>().GetCurrentLevel();
+    }
+
     public void InstantiateStatScreen() 
     {
         int statCount = playerStats.statList.Count;
@@ -47,5 +54,10 @@ public class InGameUI : MonoBehaviour
         {
             item.Value.UpdateStatInfo(item.Key.Name, item.Key.CalculatedStat.ToString());
         }
+    }
+
+    public void UpdatePostGameUI() 
+    {
+        experienceText.text = "Experience Collected: " + playerStats.GetComponent<PlayerLeveling>().GetCurrentExperience();
     }
 }

@@ -58,12 +58,19 @@ public class PlayerStats : MonoBehaviour
         BulletRange.CalculateStat(inv.items);
         Projectiles.CalculateStat(inv.items);
         BulletPierce.CalculateStat(inv.items);
+        int oldMaxHealth = (int)Health.CalculatedStat;
         Health.CalculateStat(inv.items);
+        if (Health.CalculatedStat > oldMaxHealth)
+        {
+            int delta = (int)Health.CalculatedStat - oldMaxHealth;
+            Health.CurrentStat = Mathf.Min(Health.CurrentStat + delta, Health.CalculatedStat);
+        }
         MovementSpeed.CalculateStat(inv.items);
         MaxAmmo.CalculateStat(inv.items);
         ReloadTime.CalculateStat(inv.items);
         if (GameManager.Instance.player == null) return;
         GameManager.Instance.player.GetComponent<PlayerControls>().RecalculateAttackSpeed();
+        UpdateHealthBar();
     }
 
     private void Update()
@@ -78,8 +85,13 @@ public class PlayerStats : MonoBehaviour
         if (!hitInvulnerabilty.StartCooldown()) return;
         OnHitKnockback();
         Health.CurrentStat -= amount;
-        inGameUI.UpdateHealthBar(Health.BaseStat, Health.CurrentStat);
+        UpdateHealthBar();
         if (Health.CurrentStat <= 0) Die();
+    }
+
+    private void UpdateHealthBar() 
+    {
+        inGameUI.UpdateHealthBar(Health.CalculatedStat, Health.CurrentStat);
     }
 
     private void Die()

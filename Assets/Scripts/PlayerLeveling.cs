@@ -9,6 +9,9 @@ public class PlayerLeveling : MonoBehaviour
     [SerializeField] private int level = 0;
     [Space]
     [SerializeField] private InGameUI inGameUI = default;
+    [SerializeField] private Inventory inventory = default;
+    [Space]
+    [SerializeField] private List<Item> LevelUpgrades = default;
 
     private void Update()
     {
@@ -47,6 +50,22 @@ public class PlayerLeveling : MonoBehaviour
 
         level++;
         experienceToNextLevel = 0;
+        LevelUpEvent();
+    }
+
+    void LevelUpEvent() 
+    {
+        GameManager.Instance.gamePlayManager.LevelUpEvent();
+    }
+
+    public void LevelUpgrade(int type) 
+    {
+        inventory.PickUpItem(LevelUpgrades[type]);
+    }
+
+    public int GetCurrentLevel() 
+    {
+        return level;
     }
 
     public int GetCurrentExperience() 
