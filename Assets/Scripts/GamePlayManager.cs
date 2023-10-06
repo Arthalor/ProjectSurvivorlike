@@ -51,6 +51,7 @@ public class GamePlayManager : MonoBehaviour
     {
         levelUpUI.SetActive(false);
         GameManager.Instance.UnPause();
+        pauseBlock = false;
     }
 
     public void GameWon()
