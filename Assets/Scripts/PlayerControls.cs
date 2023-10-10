@@ -22,6 +22,11 @@ public class PlayerControls : MonoBehaviour
     private int magLoad;
     private Timer reloadingTimer;
     private bool reloading = false;
+    private float perfectReloadCurrent;
+    private float perfectReloadStart = 0.2f;
+    private float perfectReloadEnd = 0.6f;
+    private float perfectRoloadLength = 0.2f;
+    private bool perfectReloadAttempted = false;
     private bool isDead = false;
 
     private Rigidbody2D rb;
@@ -69,14 +74,27 @@ public class PlayerControls : MonoBehaviour
 
         attackTimer.Tick(Time.deltaTime);
         reloadingTimer.Tick(Time.deltaTime);
-        GameManager.Instance.gamePlayManager.inGameUI.UpdateReloadUI(reloading, reloadingTimer.Progress());
+        GameManager.Instance.gamePlayManager.inGameUI.UpdateReloadUI(reloading, reloadingTimer.Progress(), !perfectReloadAttempted, perfectReloadCurrent);
 
-        if (reloadingTimer.Finished() && reloading)
+        if (reloading)
         {
-            Reload();
+            bool inPerfectReloadBounds = 
+                reloadingTimer.Progress() >= perfectReloadCurrent && 
+                reloadingTimer.Progress() <= (perfectReloadCurrent + perfectRoloadLength);
+
+            if (reloadingTimer.Finished())
+            {
+                Reload();
+            }
+            if (input.reload && !perfectReloadAttempted) 
+            {
+                if (inPerfectReloadBounds)
+                    Reload();
+                else perfectReloadAttempted = true;
+            }
         }
 
-        if (input.shoot && attackTimer.Finished() && reloadingTimer.Finished()) 
+        if (input.shoot && attackTimer.Finished() && !reloading) 
         {
             if (magLoad > 0)
             {
@@ -105,7 +123,10 @@ public class PlayerControls : MonoBehaviour
 
     void StartReload()
     {
+        if (magLoad == Mathf.RoundToInt(playerStats.MaxAmmo.CalculatedStat)) return;
         if (reloading) return;
+
+        perfectReloadCurrent = Random.Range(perfectReloadStart, perfectReloadEnd);
         reloadingTimer.Reset();
         reloading = true;
     }
@@ -114,6 +135,7 @@ public class PlayerControls : MonoBehaviour
     {
         magLoad = Mathf.RoundToInt(playerStats.MaxAmmo.CalculatedStat);
         reloading = false;
+        perfectReloadAttempted = false;
     }
 
     void SpawnBullet() 
