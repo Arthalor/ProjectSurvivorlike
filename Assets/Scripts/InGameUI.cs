@@ -11,6 +11,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private Image expBar;
     [SerializeField] private TextMeshProUGUI experienceText = default;
     [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private Slider reloadSlider = default;
     [Space(10)]
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private GameObject statContainerUI = default;
@@ -35,6 +36,12 @@ public class InGameUI : MonoBehaviour
     public void UpdateLevelUpUI()
     {
         levelText.text = "Level " + playerStats.GetComponent<PlayerLeveling>().GetCurrentLevel();
+    }
+
+    public void UpdateReloadUI(bool setAcitve,float _value) 
+    {
+        reloadSlider.gameObject.SetActive(setAcitve);
+        reloadSlider.value = _value;
     }
 
     public void InstantiateStatScreen() 

@@ -22,6 +22,7 @@ public class PlayerControls : MonoBehaviour
     private int magLoad;
     private Timer reloadingTimer;
     private bool reloading = false;
+    private bool isDead = false;
 
     private Rigidbody2D rb;
     private PlayerInput input;
@@ -55,17 +56,20 @@ public class PlayerControls : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead) return;
         rb.velocity = playerStats.MovementSpeed.CalculatedStat * new Vector3(input.movement.x, input.movement.y, 0).normalized;
     }
 
     void Update()
     {
+        if (isDead) return;
         MoveGun();
         FlipSpriteToMovement(spriteRenderer, rb.velocityX);
         input = inputHandler.Input();
 
         attackTimer.Tick(Time.deltaTime);
         reloadingTimer.Tick(Time.deltaTime);
+        GameManager.Instance.gamePlayManager.inGameUI.UpdateReloadUI(reloading, reloadingTimer.Progress());
 
         if (reloadingTimer.Finished() && reloading)
         {
@@ -127,5 +131,10 @@ public class PlayerControls : MonoBehaviour
         gunBarrel.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         gunBarrel.GetComponent<SpriteRenderer>().flipY = angle >= 90 || angle <= -90;
         gunBarrel.GetComponent<SpriteRenderer>().sortingOrder = gunBarrel.localPosition.y <= gunSortingHeight ? 2 : 0;
+    }
+
+    public void Die() 
+    {
+        isDead = true;
     }
 }

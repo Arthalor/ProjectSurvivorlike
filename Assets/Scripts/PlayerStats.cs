@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioSource hurtSource = default;
     [Space]
     [SerializeField] private InGameUI inGameUI = default;
+    [SerializeField] private PlayerControls playerControls = default;
     [Space(10)]
     public List<Stat> statList;
 
@@ -98,7 +99,7 @@ public class PlayerStats : MonoBehaviour
     {
         GameManager.Instance.gamePlayManager.GameLost();
         GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<PlayerControls>().enabled = false;
+        playerControls.Die();
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<CircleCollider2D>().enabled = false;
         transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;

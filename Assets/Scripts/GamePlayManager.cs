@@ -12,7 +12,7 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private GameObject pauseUI = default;
     [SerializeField] private GameObject statUI = default;
     [SerializeField] private GameObject levelUpUI = default;
-    [SerializeField] private InGameUI inGameUI = default;
+    [SerializeField] public InGameUI inGameUI = default;
     [Space]
     [Space]
     [SerializeField] private Timer winTimer = default;
