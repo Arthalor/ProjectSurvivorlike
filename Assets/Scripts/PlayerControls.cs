@@ -3,12 +3,14 @@ using static Helper.SpriteRendererFunctions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 [RequireComponent(typeof(PlayerStats))]
 public class PlayerControls : MonoBehaviour
 {
     [SerializeField] private InputHandler inputHandler = default;
     [SerializeField] private PlayerStats playerStats = default;
+    [SerializeField] private PlayerLeveling playerLeveling = default;
     [Space]
     [SerializeField] private GameObject bulletPrefab = default;
     [SerializeField] private Transform gunBarrel = default;
@@ -52,11 +54,8 @@ public class PlayerControls : MonoBehaviour
 
     public void RecalculateAttackSpeed()
     {
-        string name = playerStats.AttackSpeed.Name;
-        float bStat = playerStats.AttackSpeed.BaseStat;
-        float cStat = playerStats.AttackSpeed.CalculatedStat;
-        attackTimer = new Timer(1 / playerStats.AttackSpeed.CalculatedStat);
-        reloadingTimer = new Timer(playerStats.ReloadTime.CalculatedStat);
+        attackTimer = new Timer(1 / playerStats.AttackSpeed.CalculatedStat, attackTimer.GetTime());
+        reloadingTimer = new Timer(playerStats.ReloadTime.CalculatedStat, reloadingTimer.GetTime());
     }
 
     private void FixedUpdate()
@@ -74,27 +73,16 @@ public class PlayerControls : MonoBehaviour
 
         attackTimer.Tick(Time.deltaTime);
         reloadingTimer.Tick(Time.deltaTime);
-        GameManager.Instance.gamePlayManager.inGameUI.UpdateReloadUI(reloading, reloadingTimer.Progress(), !perfectReloadAttempted, perfectReloadCurrent);
 
-        if (reloading)
-        {
-            bool inPerfectReloadBounds = 
-                reloadingTimer.Progress() >= perfectReloadCurrent && 
-                reloadingTimer.Progress() <= (perfectReloadCurrent + perfectRoloadLength);
+        HandleShooting();
+        HandleReloading();
+    }
 
-            if (reloadingTimer.Finished())
-            {
-                Reload();
-            }
-            if (input.reload && !perfectReloadAttempted) 
-            {
-                if (inPerfectReloadBounds)
-                    Reload();
-                else perfectReloadAttempted = true;
-            }
-        }
+    private void HandleShooting() 
+    {
+        if (reloading) return;
 
-        if (input.shoot && attackTimer.Finished() && !reloading) 
+        if (input.shoot && attackTimer.Finished())
         {
             if (magLoad > 0)
             {
@@ -105,8 +93,37 @@ public class PlayerControls : MonoBehaviour
                 StartReload();
             }
         }
+    }
 
-        if (input.reload) 
+    private void HandleReloading()
+    {
+        bool perfectReloadEnabled = playerLeveling.IsSkillUnlocked(Skill.PerfectReload);
+        bool showPerfectReloadUI = !perfectReloadAttempted && perfectReloadEnabled;
+        GameManager.Instance.gamePlayManager.inGameUI.UpdateReloadUI(reloading, reloadingTimer.Progress(), showPerfectReloadUI, perfectReloadCurrent);
+
+        if (reloading)
+        {
+            bool inPerfectReloadBounds =
+                reloadingTimer.Progress() >= perfectReloadCurrent &&
+                reloadingTimer.Progress() <= (perfectReloadCurrent + perfectRoloadLength);
+
+            if (reloadingTimer.Finished())
+            {
+                Reload();
+            }
+            if (perfectReloadEnabled)
+            {
+                if (input.reload && !perfectReloadAttempted)
+                {
+                    if (inPerfectReloadBounds)
+                        Reload();
+                    else perfectReloadAttempted = true;
+                }
+            }
+            return;
+        }
+
+        if (input.reload)
         {
             StartReload();
         }

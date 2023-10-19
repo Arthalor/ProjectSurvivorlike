@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,22 @@ public class PlayerLeveling : MonoBehaviour
     [SerializeField] private Inventory inventory = default;
     [Space]
     [SerializeField] private List<Item> LevelUpgrades = default;
+
+    private List<Skill> skills;
+    private Dictionary<Skill, bool> unlockedSkills = new Dictionary<Skill, bool>();
+
+    private void Start()
+    {
+        skills = new List<Skill>
+        {
+            Skill.PerfectReload,
+        };
+
+        foreach (Skill skill in skills) 
+        {
+            unlockedSkills.Add(skill, false);
+        }     
+    }
 
     private void Update()
     {
@@ -72,4 +89,21 @@ public class PlayerLeveling : MonoBehaviour
     {
         return experience;
     }
+
+    public bool IsSkillUnlocked(Skill skill) 
+    {
+        return unlockedSkills[skill];
+    }
+
+    [SerializeField]
+    public void UnlockSkill(SkillEditorComponent skillEditorComponent) 
+    {
+        unlockedSkills[skillEditorComponent.skill] = true;
+    }
+}
+
+[Serializable]
+public enum Skill 
+{
+    PerfectReload,
 }

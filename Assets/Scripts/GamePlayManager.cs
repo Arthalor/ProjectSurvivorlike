@@ -12,6 +12,7 @@ public class GamePlayManager : MonoBehaviour
     [SerializeField] private GameObject pauseUI = default;
     [SerializeField] private GameObject statUI = default;
     [SerializeField] private GameObject levelUpUI = default;
+    [SerializeField] private GameObject skillTreeUI = default;
     [SerializeField] public InGameUI inGameUI = default;
     [Space]
     [Space]
@@ -47,9 +48,16 @@ public class GamePlayManager : MonoBehaviour
         inGameUI.UpdateLevelUpUI();
     }
 
-    public void LevelUpCompleted()
+    public void LevelUpContinued() 
     {
         levelUpUI.SetActive(false);
+        skillTreeUI.SetActive(true);
+        inGameUI.UpdateSkillTreeUI();
+    }
+
+    public void LevelUpCompleted()
+    {
+        skillTreeUI.SetActive(false);
         GameManager.Instance.UnPause();
         pauseBlock = false;
     }

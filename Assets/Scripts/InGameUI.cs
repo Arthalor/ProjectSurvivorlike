@@ -18,6 +18,8 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private GameObject statContainerUI = default;
     [SerializeField] private GameObject statContainerLayout = default;
     [SerializeField] private Dictionary<Stat, StatContainerUI> statUIPairs = new();
+    [Space(10)]
+    [SerializeField] private List<Button> skillTreeButtons = new();
 
     private void Start()
     {
@@ -37,6 +39,14 @@ public class InGameUI : MonoBehaviour
     public void UpdateLevelUpUI()
     {
         levelText.text = "Level " + playerStats.GetComponent<PlayerLeveling>().GetCurrentLevel();
+    }
+
+    public void UpdateSkillTreeUI()
+    {
+        foreach (Button button in skillTreeButtons) 
+        {
+            button.interactable = !playerStats.GetComponent<PlayerLeveling>().IsSkillUnlocked(button.gameObject.GetComponent<SkillEditorComponent>().skill);
+        }
     }
 
     public void UpdateReloadUI(bool setAcitve,float _value, bool perfectReloadPossible, float perfectReloadStart) 

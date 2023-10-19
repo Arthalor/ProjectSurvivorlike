@@ -32,6 +32,11 @@ namespace Helper
             if (timer > maxTime) timer = maxTime;
         }
 
+        public float GetTime() 
+        {
+            return timer;
+        }
+
         public float Progress() 
         {
             return timer / maxTime;
