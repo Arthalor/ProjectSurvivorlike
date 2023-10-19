@@ -29,7 +29,7 @@ public class ExperienceBehaviour : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<AudioSource>().Play();
             GetComponent<Collider2D>().enabled = false;
-            GameManager.Instance.player.GetComponent<PlayerLeveling>().PickUpExperience(1);
+            GameManager.Instance.playerManager.playerLeveling.PickUpExperience(1);
             Destroy(gameObject, 1);
         }
     }

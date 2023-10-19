@@ -9,8 +9,6 @@ using UnityEngine.InputSystem.LowLevel;
 public class PlayerControls : MonoBehaviour
 {
     [SerializeField] private InputHandler inputHandler = default;
-    [SerializeField] private PlayerStats playerStats = default;
-    [SerializeField] private PlayerLeveling playerLeveling = default;
     [Space]
     [SerializeField] private GameObject bulletPrefab = default;
     [SerializeField] private Transform gunBarrel = default;
@@ -31,14 +29,22 @@ public class PlayerControls : MonoBehaviour
     private bool perfectReloadAttempted = false;
     private bool isDead = false;
 
+    private PlayerManager playerManager;
+
     private Rigidbody2D rb;
     private PlayerInput input;
     private SpriteRenderer spriteRenderer;
+    private PlayerStats playerStats;
+    private PlayerLeveling playerLeveling;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        playerManager = GameManager.Instance.playerManager;
+        rb = playerManager.rb;
+        spriteRenderer = playerManager.spriteRenderer;
+        playerStats = playerManager.playerStats;
+        playerLeveling = playerManager.playerLeveling;
+
         InitializeStats();
     }
 

@@ -24,12 +24,14 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioSource hurtSource = default;
     [Space]
     [SerializeField] private InGameUI inGameUI = default;
-    [SerializeField] private PlayerControls playerControls = default;
     [Space(10)]
     public List<Stat> statList;
 
+    private PlayerManager playerManager = default;
+
     private void Start()
     {
+        playerManager = GameManager.Instance.playerManager;
         RecalculateStats();
         statList = ListStats();
     }
@@ -52,7 +54,7 @@ public class PlayerStats : MonoBehaviour
 
     public void RecalculateStats() 
     {
-        Inventory inv = GetComponent<Inventory>();
+        Inventory inv = playerManager.playerInventory;
         AttackSpeed.CalculateStat(inv.items);
         AttackDamage.CalculateStat(inv.items);
         BulletSpeed.CalculateStat(inv.items);
@@ -70,7 +72,7 @@ public class PlayerStats : MonoBehaviour
         MaxAmmo.CalculateStat(inv.items);
         ReloadTime.CalculateStat(inv.items);
         if (GameManager.Instance.player == null) return;
-        GameManager.Instance.player.GetComponent<PlayerControls>().RecalculateAttackSpeed();
+        GameManager.Instance.playerManager.playerControls.RecalculateAttackSpeed();
         UpdateHealthBar();
     }
 
@@ -98,10 +100,10 @@ public class PlayerStats : MonoBehaviour
     private void Die()
     {
         GameManager.Instance.gamePlayManager.GameLost();
-        GetComponent<SpriteRenderer>().enabled = false;
-        playerControls.Die();
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        GetComponent<CircleCollider2D>().enabled = false;
+        playerManager.spriteRenderer.enabled = false;
+        playerManager.playerControls.Die();
+        playerManager.rb.bodyType = RigidbodyType2D.Static;
+        playerManager.coll2d.enabled = false;
         transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
     }
 

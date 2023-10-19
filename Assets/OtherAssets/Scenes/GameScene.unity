@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 38555060}
   - component: {fileID: 38555065}
   - component: {fileID: 38555064}
+  - component: {fileID: 38555071}
   - component: {fileID: 38555063}
   - component: {fileID: 38555066}
   - component: {fileID: 38555067}
@@ -276,8 +277,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1028475146}
-  playerStats: {fileID: 38555066}
-  playerLeveling: {fileID: 38555070}
   bulletPrefab: {fileID: 6541360136733734458, guid: 21346b828ad12af40890ba7a0095c0b1, type: 3}
   gunBarrel: {fileID: 501880356}
   gunDistance: 0.8
@@ -416,7 +415,6 @@ MonoBehaviour:
   hurtSound: {fileID: 8300000, guid: dbda8c249e374c74bbc17ba8c4933c6d, type: 3}
   hurtSource: {fileID: 38555069}
   inGameUI: {fileID: 1236702512}
-  playerControls: {fileID: 38555063}
   statList: []
 --- !u!114 &38555067
 MonoBehaviour:
@@ -570,6 +568,25 @@ MonoBehaviour:
   LevelUpgrades:
   - {fileID: 11400000, guid: 8d1745b32eab7e14cb5f50e3878d604c, type: 2}
   - {fileID: 11400000, guid: 36fc7edb72e99af4e91e81a80d85a929, type: 2}
+--- !u!114 &38555071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38555059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd52fd4562675534598151fea860ef91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 38555060}
+  rb: {fileID: 38555065}
+  coll2d: {fileID: 38555064}
+  playerControls: {fileID: 38555063}
+  playerStats: {fileID: 38555066}
+  playerInventory: {fileID: 38555068}
+  playerLeveling: {fileID: 38555070}
 --- !u!1 &47411001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3540,8 +3557,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a138adfb0d35a94438c44ba7ed7109ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  gamePlayManager: {fileID: 0}
+  player: {fileID: 38555061}
+  playerManager: {fileID: 38555071}
+  gamePlayManager: {fileID: 1236702513}
 --- !u!114 &1028475146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4028,7 +4046,6 @@ MonoBehaviour:
   levelText: {fileID: 2051799993}
   reloadSlider: {fileID: 1599933775}
   perfectReloadUI: {fileID: 1445533887}
-  playerStats: {fileID: 38555066}
   statContainerUI: {fileID: 5884476440613530763, guid: cffbb3e59803dca4e886f84752722702, type: 3}
   statContainerLayout: {fileID: 47411001}
   skillTreeButtons:

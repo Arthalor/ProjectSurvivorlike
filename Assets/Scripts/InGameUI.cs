@@ -14,15 +14,17 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private Slider reloadSlider = default;
     [SerializeField] private GameObject perfectReloadUI = default;
     [Space(10)]
-    [SerializeField] private PlayerStats playerStats;
     [SerializeField] private GameObject statContainerUI = default;
     [SerializeField] private GameObject statContainerLayout = default;
     [SerializeField] private Dictionary<Stat, StatContainerUI> statUIPairs = new();
     [Space(10)]
     [SerializeField] private List<Button> skillTreeButtons = new();
 
+    private PlayerManager playerManager;
+
     private void Start()
     {
+        playerManager = GameManager.Instance.playerManager;
         InstantiateStatScreen();
     }
 
@@ -38,14 +40,14 @@ public class InGameUI : MonoBehaviour
 
     public void UpdateLevelUpUI()
     {
-        levelText.text = "Level " + playerStats.GetComponent<PlayerLeveling>().GetCurrentLevel();
+        levelText.text = "Level " + playerManager.playerLeveling.GetCurrentLevel();
     }
 
     public void UpdateSkillTreeUI()
     {
         foreach (Button button in skillTreeButtons) 
         {
-            button.interactable = !playerStats.GetComponent<PlayerLeveling>().IsSkillUnlocked(button.gameObject.GetComponent<SkillEditorComponent>().skill);
+            button.interactable = !playerManager.playerLeveling.IsSkillUnlocked(button.gameObject.GetComponent<SkillEditorComponent>().skill);
         }
     }
 
@@ -59,11 +61,11 @@ public class InGameUI : MonoBehaviour
 
     public void InstantiateStatScreen() 
     {
-        int statCount = playerStats.statList.Count;
+        int statCount = playerManager.playerStats.statList.Count;
         for (int i = 0; i < statCount; i++) 
         {
             GameObject statContainerUIobject = Instantiate(statContainerUI, statContainerLayout.transform);
-            statUIPairs.Add(playerStats.statList[i], statContainerUIobject.GetComponent<StatContainerUI>());
+            statUIPairs.Add(playerManager.playerStats.statList[i], statContainerUIobject.GetComponent<StatContainerUI>());
         }
         UpdateStatUI();
     }
@@ -78,6 +80,6 @@ public class InGameUI : MonoBehaviour
 
     public void UpdatePostGameUI() 
     {
-        experienceText.text = "Experience Collected: " + playerStats.GetComponent<PlayerLeveling>().GetCurrentExperience();
+        experienceText.text = "Experience Collected: " + playerManager.playerStats.GetComponent<PlayerLeveling>().GetCurrentExperience();
     }
 }

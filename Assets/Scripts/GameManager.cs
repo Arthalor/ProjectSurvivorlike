@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Helper;
-using UnityEditor;
-using System.ComponentModel;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -25,15 +23,10 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public Transform player = default;
+    public PlayerManager playerManager = default;
     public GamePlayManager gamePlayManager = default;
 
     private bool isPaused = false;
-
-    private void Start()
-    {
-        player = GameObject.Find("Player").transform;
-        gamePlayManager = GameObject.Find("SceneManager").GetComponent<GamePlayManager>();
-    }
 
     public bool IsPaused() 
     {
